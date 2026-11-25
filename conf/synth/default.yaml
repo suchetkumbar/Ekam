@@ -1,0 +1,19 @@
+# Synthetic multi-source generator. Each source has its own noise profile (conf/sources/);
+# a difficulty level (conf/noise/) scales every noise rate.
+defaults:
+  - /sources@sources.erp: erp
+  - /sources@sources.gst_portal: gst_portal
+  - /sources@sources.crm_ocr: crm_ocr
+  - /sources@sources.hindi_vendor: hindi_vendor
+  - _self_
+
+entities_path: ${data.clean_path}
+n_entities: null          # null = all ingested entities; set e.g. 20000 for a quick run
+levels: [easy, medium, hard]
+out_dir: ${paths.synth}
+rate_cap: 0.95            # no noise type ever exceeds this probability after scaling
+chunk_size: 20000
+n_workers: ${hardware.n_workers}
+# Synthetic GSTIN: real format + checksum, but the PAN block always starts with this
+# reserved prefix and the column is named `gstin` only inside clearly-synthetic sources.
+gstin_pan_prefix: ZZZ

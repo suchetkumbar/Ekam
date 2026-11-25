@@ -1,0 +1,39 @@
+# Indian States/UTs: canonical name -> GST state code, common abbreviations/variants, and
+# PIN-code prefixes (India Post postal circles; 2- or 3-digit prefixes, approximate at
+# circle borders - used only as a soft consistency signal, never as a hard rule).
+Jammu and Kashmir: {gst: "01", alias: [J&K, JK, Jammu & Kashmir, Jammu Kashmir], pin: ["18", "19"]}
+Himachal Pradesh: {gst: "02", alias: [HP, H.P., Himachal], pin: ["17"]}
+Punjab: {gst: "03", alias: [PB, Panjab], pin: ["14", "15"]}
+Chandigarh: {gst: "04", alias: [CH, Chandigarh UT], pin: ["16"]}
+Uttarakhand: {gst: "05", alias: [UK, Uttaranchal, UA, UT], pin: ["244", "246", "247", "248", "249", "262", "263"]}
+Haryana: {gst: "06", alias: [HR, Hariyana], pin: ["12", "13"]}
+Delhi: {gst: "07", alias: [DL, New Delhi, NCT of Delhi, NCT Delhi], pin: ["11"]}
+Rajasthan: {gst: "08", alias: [RJ, Raj, Rajasthaan], pin: ["30", "31", "32", "33", "34"]}
+Uttar Pradesh: {gst: "09", alias: [UP, U.P., Uttarpradesh, U P], pin: ["20", "21", "22", "23", "24", "25", "26", "27", "28"]}
+Bihar: {gst: "10", alias: [BR, Bihar State], pin: ["80", "84", "85"]}
+Sikkim: {gst: "11", alias: [SK], pin: ["737"]}
+Arunachal Pradesh: {gst: "12", alias: [AR, Arunachal], pin: ["790", "791", "792"]}
+Nagaland: {gst: "13", alias: [NL], pin: ["797", "798"]}
+Manipur: {gst: "14", alias: [MN], pin: ["795"]}
+Mizoram: {gst: "15", alias: [MZ], pin: ["796"]}
+Tripura: {gst: "16", alias: [TR], pin: ["799"]}
+Meghalaya: {gst: "17", alias: [ML], pin: ["793", "794"]}
+Assam: {gst: "18", alias: [AS], pin: ["78"]}
+West Bengal: {gst: "19", alias: [WB, W.B., Bengal, Paschim Banga], pin: ["70", "71", "72", "73", "74"]}
+Jharkhand: {gst: "20", alias: [JH, Jharkhand State], pin: ["81", "82", "83"]}
+Odisha: {gst: "21", alias: [OD, OR, Orissa, Odisa], pin: ["75", "76", "77"]}
+Chhattisgarh: {gst: "22", alias: [CG, CT, Chattisgarh, Chhatisgarh], pin: ["49"]}
+Madhya Pradesh: {gst: "23", alias: [MP, M.P., Madhyapradesh], pin: ["45", "46", "47", "48"]}
+Gujarat: {gst: "24", alias: [GJ, Gujrat, Gujarath], pin: ["36", "37", "38", "39"]}
+Dadra and Nagar Haveli and Daman and Diu: {gst: "26", alias: [DNHDD, Daman, Diu, Dadra and Nagar Haveli, Daman and Diu, DN, DD], pin: ["396"]}
+Maharashtra: {gst: "27", alias: [MH, Maharastra, Maharashtra State], pin: ["40", "41", "42", "43", "44"]}
+Karnataka: {gst: "29", alias: [KA, KAR, Karnatak, Karnataka State], pin: ["56", "57", "58", "59"]}
+Goa: {gst: "30", alias: [GA, Goa State], pin: ["403"]}
+Lakshadweep: {gst: "31", alias: [LD], pin: ["682"]}
+Kerala: {gst: "32", alias: [KL, Keralam], pin: ["67", "68", "69"]}
+Tamil Nadu: {gst: "33", alias: [TN, T.N., Tamilnadu], pin: ["60", "61", "62", "63", "64"]}
+Puducherry: {gst: "34", alias: [PY, Pondicherry, Pondy], pin: ["605"]}
+Andaman and Nicobar Islands: {gst: "35", alias: [AN, Andaman, A&N], pin: ["744"]}
+Telangana: {gst: "36", alias: [TS, TG, Telengana], pin: ["50"]}
+Andhra Pradesh: {gst: "37", alias: [AP, A.P., Andhra], pin: ["51", "52", "53"]}
+Ladakh: {gst: "38", alias: [LA], pin: ["194"]}

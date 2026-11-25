@@ -1,0 +1,24 @@
+# Internal ERP vendor master: fairly clean, keyed in by procurement staff.
+description: In-house ERP vendor master; light abbreviation and suffix variation, IDs often present.
+coverage: 0.75            # P(entity present in this source)   [structure: same at every level]
+dup_rate: 0.05            # P(each extra in-source duplicate), geometric
+address_format: split     # street / city / state / pin in separate columns
+columns: {name: vendor_name, address: address_line1, city: city, state: state, pin: pincode, cin: cin, gstin: gst_no}
+noise:                    # base rates at difficulty=medium
+  name_suffix_variant: 0.50
+  name_suffix_drop: 0.05
+  name_abbrev: 0.25
+  name_abbrev_heldout: 0.03
+  name_case: 0.60
+  name_typo: 0.05
+  name_prefix_ms: 0.05
+  addr_abbrev: 0.40
+  addr_typo: 0.05
+  city_alias: 0.15
+  state_variant: 0.30
+  pin_missing: 0.10
+  pin_wrong: 0.02
+  cin_missing: 0.30
+  cin_typo: 0.02
+  gstin_missing: 0.40
+  gstin_typo: 0.02

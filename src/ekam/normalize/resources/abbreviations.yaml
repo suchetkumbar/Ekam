@@ -1,0 +1,35 @@
+# Business-word abbreviations seen in Indian vendor masters.
+# `known` variants: the normaliser expands these back to the full word.
+# `heldout` variants: ONLY the noise generator emits these; the normaliser never sees them.
+# This keeps the normaliser's benefit on synthetic data from being self-fulfilling:
+# evaluation can report performance separately on records carrying held-out abbreviations.
+TRADERS: {known: [TRDRS, TRADRS, TRDS], heldout: [TRDR, TRADR]}
+TRADING: {known: [TRDG, TRDNG], heldout: [TRADNG]}
+ENTERPRISES: {known: [ENT, ENTP, ENTPR, ENTERPRISE, ENTRPRS], heldout: [ENTRP, ENTPS]}
+INDUSTRIES: {known: [INDS, INDUS, INDST], heldout: [INDSTR, INDSTRS]}
+INTERNATIONAL: {known: [INTL, INT, INTNL], heldout: [INTRNL]}
+CORPORATION: {known: [CORP, CORPN], heldout: [CRPN]}
+MANUFACTURING: {known: [MFG, MANUF], heldout: [MNFG]}
+MANUFACTURERS: {known: [MFRS], heldout: [MNFRS]}
+ENGINEERING: {known: [ENGG, ENGR, ENGINEERG], heldout: [ENGNG]}
+ENGINEERS: {known: [ENGRS], heldout: [ENGNRS]}
+SERVICES: {known: [SVCS, SERV, SRVCS, SERVS], heldout: [SRVS]}
+TECHNOLOGIES: {known: [TECH, TECHNO, TECHS, TECHNOLOGY], heldout: [TECHNLGS]}
+SOLUTIONS: {known: [SOLN, SOLNS, SOL], heldout: [SLTNS]}
+CONSTRUCTIONS: {known: [CONSTN, CONSTRN, CONSTRUCTION], heldout: [CNSTRN]}
+INFRASTRUCTURE: {known: [INFRA, INFRASTRUC], heldout: [INFRSTR]}
+DEVELOPERS: {known: [DEVLPRS, DEVS], heldout: [DVLPRS]}
+PRODUCTS: {known: [PRODS, PRDCTS], heldout: [PRDS]}
+CHEMICALS: {known: [CHEM, CHEMS], heldout: [CHMCLS]}
+PHARMACEUTICALS: {known: [PHARMA, PHARMS], heldout: [PHRMA]}
+MARKETING: {known: [MKTG, MKTNG], heldout: [MRKTG]}
+DISTRIBUTORS: {known: [DISTRS, DISTB], heldout: [DSTRBTRS]}
+EXPORTS: {known: [EXP, EXPTS], heldout: [EXPRTS]}
+IMPORTS: {known: [IMP, IMPTS], heldout: [IMPRTS]}
+BROTHERS: {known: [BROS, BRO, BRS], heldout: [BRTHRS]}
+ASSOCIATES: {known: [ASSOC, ASSOCS, ASSO], heldout: [ASSCTS]}
+INVESTMENTS: {known: [INVST, INVTS, INVESTMENT], heldout: [INVSTMNTS]}
+FINANCE: {known: [FIN, FINC], heldout: [FNNC]}
+INDIA: {known: [INDA], heldout: []}
+AND: {known: ["&"], heldout: []}
+SHRI: {known: [SRI, SHREE, SREE, SHRE], heldout: [SHRII]}

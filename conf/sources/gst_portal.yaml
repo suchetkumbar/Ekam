@@ -1,0 +1,22 @@
+# Export from a GST-registration lookup: upper-case legal names, GSTIN nearly always present,
+# no CIN, addresses re-ordered into the portal's "principal place of business" layout.
+description: GST-portal style export; upper case, GSTIN present, CIN absent, reordered addresses.
+coverage: 0.60
+dup_rate: 0.02
+address_format: split
+force_case: upper
+columns: {name: legal_name, address: principal_place, city: district, state: state_name, pin: pin_code, cin: null, gstin: gstin}
+noise:
+  name_suffix_variant: 0.30
+  name_suffix_drop: 0.02
+  name_abbrev: 0.05
+  name_typo: 0.03
+  addr_reorder: 0.40
+  addr_abbrev: 0.30
+  addr_truncate: 0.10
+  city_alias: 0.10
+  state_variant: 0.05
+  pin_missing: 0.02
+  pin_wrong: 0.03
+  gstin_missing: 0.05
+  gstin_typo: 0.03

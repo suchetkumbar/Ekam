@@ -1,0 +1,45 @@
+{
+  "entities": 278030,
+  "levels": {
+    "easy": {
+      "records": 669893,
+      "true_pairs": 645547,
+      "id_shortcut_recall": 0.71384577730204,
+      "id_shortcut_precision": 0.9999457519431654,
+      "id_shortcut_false_pairs": 25,
+      "order_leak": 2.985555880649418e-06,
+      "max_rate_dev": 0.002008092771951381,
+      "mean_cluster_size": 2.483697667175844
+    },
+    "medium": {
+      "records": 669893,
+      "true_pairs": 645547,
+      "id_shortcut_recall": 0.2943364309647477,
+      "id_shortcut_precision": 0.9998631823778903,
+      "id_shortcut_false_pairs": 26,
+      "order_leak": 4.478333820974127e-06,
+      "max_rate_dev": 0.0033903521144821314,
+      "mean_cluster_size": 2.483697667175844
+    },
+    "hard": {
+      "records": 669893,
+      "true_pairs": 645547,
+      "id_shortcut_recall": 0.08037834580595991,
+      "id_shortcut_precision": 0.999788049866086,
+      "id_shortcut_false_pairs": 11,
+      "order_leak": 1.492777940324709e-06,
+      "max_rate_dev": 0.0029811689899730265,
+      "mean_cluster_size": 2.483697667175844
+    }
+  },
+  "homonyms": {
+    "homonym_groups": 207,
+    "homonym_groups_cross_split": 99,
+    "entities_in_homonym_groups": 420
+  },
+  "translit_round_trip": {
+    "devanagari_exact_key": 0.786,
+    "translit_variant_exact_key": 0.9696666666666667,
+    "sample": 3000
+  }
+}

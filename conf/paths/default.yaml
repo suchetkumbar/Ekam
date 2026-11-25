@@ -1,0 +1,10 @@
+# All paths are relative to the repo root (Hydra runs with chdir=false; run make from the root).
+root: .
+data: ${.root}/data
+raw: ${.data}/raw
+interim: ${.data}/interim
+processed: ${.data}/processed
+synth: ${.data}/synth
+benchmarks: ${.data}/benchmarks
+reports: ${.root}/docs/reports
+cache: ${.root}/.cache

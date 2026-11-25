@@ -1,0 +1,7 @@
+# Detected 2026-11-25: i7-12700H (14C/20T), 15.7 GB RAM, RTX 3060 Laptop 6 GB, D: 43 GB free.
+n_workers: 8          # leave headroom for the OS / IDE
+polars_max_threads: 12
+ram_budget_gb: 10     # soft cap used to size chunks
+gpu: true
+vram_gb: 6
+fp16: true

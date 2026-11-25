@@ -1,0 +1,84 @@
+# City/district canonical name -> aliases (old names, spellings, common abbreviations).
+# `heldout` aliases are emitted only by the noise generator (see abbreviations.yaml note).
+Mumbai: {state: Maharashtra, alias: [Bombay, Mumbai City, Bom, Greater Mumbai], heldout: [Mumbay]}
+Pune: {state: Maharashtra, alias: [Poona], heldout: [Puna]}
+Delhi: {state: Delhi, alias: [New Delhi, Dilli, N Delhi, N.Delhi], heldout: [Dehli]}
+Kolkata: {state: West Bengal, alias: [Calcutta, Kolkatta], heldout: [Kalkatta]}
+Chennai: {state: Tamil Nadu, alias: [Madras], heldout: [Chenai]}
+Bengaluru: {state: Karnataka, alias: [Bangalore, Banglore, Bengalore, Bangaluru, Blr, Bangalore Urban, Bengaluru Urban], heldout: [Bangaloor]}
+Mysuru: {state: Karnataka, alias: [Mysore], heldout: [Maisuru]}
+Mangaluru: {state: Karnataka, alias: [Mangalore, Mangalooru], heldout: [Mangalur]}
+Belagavi: {state: Karnataka, alias: [Belgaum, Belgavi], heldout: [Belgam]}
+Hubballi: {state: Karnataka, alias: [Hubli, Hubli-Dharwad, Hubballi-Dharwad], heldout: [Hubly]}
+Kalaburagi: {state: Karnataka, alias: [Gulbarga], heldout: [Kalburgi]}
+Ballari: {state: Karnataka, alias: [Bellary], heldout: [Bellari]}
+Vijayapura: {state: Karnataka, alias: [Bijapur], heldout: [Vijaypur]}
+Shivamogga: {state: Karnataka, alias: [Shimoga], heldout: [Shivmoga]}
+Tumakuru: {state: Karnataka, alias: [Tumkur], heldout: [Tumkuru]}
+Davanagere: {state: Karnataka, alias: [Davangere], heldout: [Davangeri]}
+Udupi: {state: Karnataka, alias: [Udipi], heldout: []}
+Ahmedabad: {state: Gujarat, alias: [Ahmadabad, Amdavad, Ahamedabad, Ahemdabad, Ahmedabd], heldout: [Amdabad]}
+Vadodara: {state: Gujarat, alias: [Baroda], heldout: [Vadodra]}
+Surat: {state: Gujarat, alias: [Surat City], heldout: []}
+Rajkot: {state: Gujarat, alias: [Rajkote], heldout: []}
+Bhavnagar: {state: Gujarat, alias: [Bhaunagar, Bhavanagar], heldout: [Bhavngar]}
+Jamnagar: {state: Gujarat, alias: [Jam Nagar], heldout: []}
+Gandhinagar: {state: Gujarat, alias: [Gandhi Nagar], heldout: []}
+Bharuch: {state: Gujarat, alias: [Broach], heldout: [Baruch]}
+Valsad: {state: Gujarat, alias: [Bulsar], heldout: []}
+Kutch: {state: Gujarat, alias: [Kachchh, Bhuj], heldout: [Kachh]}
+Jaipur: {state: Rajasthan, alias: [Jaypur, Pink City], heldout: [Jaipure]}
+Jodhpur: {state: Rajasthan, alias: [Jodhpure], heldout: []}
+Udaipur: {state: Rajasthan, alias: [Udaypur], heldout: []}
+Ajmer: {state: Rajasthan, alias: [Ajmeer], heldout: []}
+Kota: {state: Rajasthan, alias: [Kotah], heldout: []}
+Bikaner: {state: Rajasthan, alias: [Bikanir], heldout: []}
+Bhilwara: {state: Rajasthan, alias: [Bhilwada], heldout: []}
+Alwar: {state: Rajasthan, alias: [Ulwar], heldout: []}
+Lucknow: {state: Uttar Pradesh, alias: [Lakhnau, Lko], heldout: [Luknow]}
+Kanpur: {state: Uttar Pradesh, alias: [Cawnpore, Kanpur Nagar], heldout: [Kanpoor]}
+Prayagraj: {state: Uttar Pradesh, alias: [Allahabad, Ilahabad], heldout: [Prayag]}
+Varanasi: {state: Uttar Pradesh, alias: [Banaras, Benares, Kashi], heldout: [Varansi]}
+Agra: {state: Uttar Pradesh, alias: [Agra City], heldout: []}
+Noida: {state: Uttar Pradesh, alias: [Gautam Buddha Nagar, Gautam Budh Nagar, G B Nagar], heldout: [Noyda]}
+Ghaziabad: {state: Uttar Pradesh, alias: [Gaziabad, Ghazibad], heldout: [Gzb]}
+Meerut: {state: Uttar Pradesh, alias: [Merath, Mirat], heldout: []}
+Bareilly: {state: Uttar Pradesh, alias: [Bareli, Barely], heldout: []}
+Aligarh: {state: Uttar Pradesh, alias: [Koil], heldout: []}
+Moradabad: {state: Uttar Pradesh, alias: [Muradabad], heldout: []}
+Gorakhpur: {state: Uttar Pradesh, alias: [Gorakpur], heldout: []}
+Muzaffarnagar: {state: Uttar Pradesh, alias: [Muzzafarnagar, Muzaffar Nagar], heldout: []}
+Saharanpur: {state: Uttar Pradesh, alias: [Saharnpur], heldout: []}
+Mathura: {state: Uttar Pradesh, alias: [Muttra], heldout: []}
+Jhansi: {state: Uttar Pradesh, alias: [Jhansee], heldout: []}
+Ayodhya: {state: Uttar Pradesh, alias: [Faizabad], heldout: []}
+Panaji: {state: Goa, alias: [Panjim, Ponda Panaji, Pangim], heldout: [Panji]}
+Margao: {state: Goa, alias: [Madgaon, Madgao], heldout: []}
+Vasco da Gama: {state: Goa, alias: [Vasco, Mormugao, Marmagao], heldout: []}
+Gurugram: {state: Haryana, alias: [Gurgaon, Ggn], heldout: [Gurgram]}
+Kochi: {state: Kerala, alias: [Cochin, Ernakulam], heldout: [Kochin]}
+Thiruvananthapuram: {state: Kerala, alias: [Trivandrum, Tvm], heldout: [Tiruvananthapuram]}
+Kozhikode: {state: Kerala, alias: [Calicut], heldout: []}
+Thrissur: {state: Kerala, alias: [Trichur], heldout: []}
+Puducherry: {state: Puducherry, alias: [Pondicherry, Pondy], heldout: []}
+Visakhapatnam: {state: Andhra Pradesh, alias: [Vizag, Vishakhapatnam, Waltair], heldout: [Vizagapatnam]}
+Vijayawada: {state: Andhra Pradesh, alias: [Bezawada], heldout: []}
+Hyderabad: {state: Telangana, alias: [Hyd, Secunderabad, Cyberabad], heldout: [Hydrabad]}
+Bhubaneswar: {state: Odisha, alias: [Bhubaneshwar, Bbsr], heldout: []}
+Shimla: {state: Himachal Pradesh, alias: [Simla], heldout: []}
+Indore: {state: Madhya Pradesh, alias: [Indor], heldout: []}
+Bhopal: {state: Madhya Pradesh, alias: [Bhopal City], heldout: []}
+Jabalpur: {state: Madhya Pradesh, alias: [Jubbulpore], heldout: []}
+Patna: {state: Bihar, alias: [Patliputra], heldout: []}
+Guwahati: {state: Assam, alias: [Gauhati], heldout: []}
+Ludhiana: {state: Punjab, alias: [Ludhianna], heldout: []}
+Amritsar: {state: Punjab, alias: [Amritsir], heldout: []}
+Nagpur: {state: Maharashtra, alias: [Nagpure], heldout: []}
+Nashik: {state: Maharashtra, alias: [Nasik], heldout: []}
+Thane: {state: Maharashtra, alias: [Thana], heldout: []}
+Aurangabad: {state: Maharashtra, alias: [Chhatrapati Sambhajinagar, Sambhajinagar], heldout: []}
+Kolhapur: {state: Maharashtra, alias: [Kolhapure], heldout: []}
+Coimbatore: {state: Tamil Nadu, alias: [Kovai], heldout: []}
+Madurai: {state: Tamil Nadu, alias: [Madura], heldout: []}
+Tiruchirappalli: {state: Tamil Nadu, alias: [Trichy, Tiruchi, Trichinopoly], heldout: []}
+Tuticorin: {state: Tamil Nadu, alias: [Thoothukudi], heldout: []}

@@ -1,0 +1,29 @@
+# Ekam root config. Every path, threshold and hyperparameter lives under conf/.
+# Override from the command line, e.g.:  make data ARGS="synth.n_entities=20000 noise=hard"
+defaults:
+  - paths: default
+  - data: mca
+  - benchmarks: default
+  - synth: default
+  - noise: medium
+  - split: entity
+  - hardware: laptop
+  - _self_
+
+seed: 13
+
+mlflow:
+  tracking_uri: sqlite:///mlruns/mlflow.db
+  artifact_location: mlruns/artifacts
+  experiment: ekam-m1-data
+
+hydra:
+  job:
+    chdir: false
+  run:
+    dir: ${paths.cache}/hydra/${now:%Y-%m-%d_%H-%M-%S}
+  output_subdir: null
+
+pipeline:
+  data_steps: [download, benchmarks, ingest, synth, split, audit]
+  force: false        # re-run ingest even if its output exists

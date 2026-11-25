@@ -1,0 +1,26 @@
+# Legal-form suffixes. Canonical code -> surface variants (matched at the END of a name,
+# after punctuation normalisation: dots/brackets become spaces, case is upper).
+# Longest match wins, so "OPC PRIVATE LIMITED" beats "PRIVATE LIMITED".
+# `render` variants are what the noise generator may emit; `match` variants are what the
+# normaliser recognises. They overlap on purpose but are not identical (see docs/NOISE.md).
+OPC_PVT_LTD:
+  match: ["OPC PRIVATE LIMITED", "OPC PVT LTD", "PRIVATE LIMITED OPC", "PVT LTD OPC",
+          "OPC PVT LIMITED", "LIMITED OPC", "LTD OPC", "ओपीसी प्राइवेट लिमिटेड"]
+  render: ["(OPC) Private Limited", "OPC Pvt Ltd", "Private Limited (OPC)", "(OPC) Pvt. Ltd."]
+PVT_LTD:
+  match: ["PRIVATE LIMITED", "PVT LTD", "PVT LIMITED", "PRIVATE LTD", "P LTD", "P LIMITED",
+          "PRIV LTD", "PVTLTD", "PRIVATELIMITED", "PVT LTD CO", "PRIVATE LIMITED COMPANY",
+          "PRAIVET LIMITED", "PRAIVETA LIMITEDA", "PRAIVETA LIMITED", "PRIVET LIMITED",
+          "PVT", "PRIVATE"]
+  render: ["Private Limited", "Pvt Ltd", "Pvt. Ltd.", "P. Ltd.", "(P) Ltd", "Pvt Limited",
+           "Private Ltd", "PVT.LTD", "Pvt.Ltd.", "P Ltd"]
+LTD:
+  match: ["LIMITED", "LTD", "LTD CO", "LIMITED COMPANY", "PUBLIC LIMITED", "PUBLIC LIMITED COMPANY",
+          "PLC", "LIMITEDA"]
+  render: ["Limited", "Ltd", "Ltd.", "LTD.", "Public Limited"]
+LLP:
+  match: ["LLP", "L L P", "LIMITED LIABILITY PARTNERSHIP"]
+  render: ["LLP", "L.L.P.", "Limited Liability Partnership"]
+CO:
+  match: ["AND COMPANY", "AND CO", "COMPANY", "CO"]
+  render: ["& Co", "& Co.", "And Company", "and Co."]

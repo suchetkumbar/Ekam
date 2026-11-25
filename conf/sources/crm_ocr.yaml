@@ -1,0 +1,30 @@
+# Sales CRM fed partly by OCR of scanned invoices / visiting cards: heavy character noise,
+# single-line addresses, many in-source duplicates, identifiers mostly missing or garbled.
+description: CRM with OCR-ingested invoices; character noise, one-line address, frequent duplicates.
+coverage: 0.50
+dup_rate: 0.15
+address_format: single_line
+columns: {name: company, address: address, city: null, state: null, pin: null, cin: cin_no, gstin: gstin_no}
+noise:
+  name_suffix_variant: 0.40
+  name_suffix_drop: 0.25
+  name_abbrev: 0.30
+  name_abbrev_heldout: 0.10
+  name_case: 0.40
+  name_typo: 0.20
+  name_ocr: 0.35
+  name_token_drop: 0.15
+  name_spacing: 0.15
+  addr_ocr: 0.30
+  addr_typo: 0.20
+  addr_abbrev: 0.40
+  addr_truncate: 0.30
+  city_alias: 0.20
+  city_missing: 0.20
+  state_variant: 0.30
+  pin_missing: 0.30
+  pin_wrong: 0.08
+  cin_missing: 0.85
+  cin_typo: 0.10
+  gstin_missing: 0.80
+  gstin_typo: 0.10

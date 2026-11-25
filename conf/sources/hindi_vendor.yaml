@@ -1,0 +1,25 @@
+# Regional (Hindi-language) vendor register: names in Devanagari or variant romanisation,
+# "M/s" prefixes, old city names, wrong PINs.
+description: Regional Hindi vendor register; Devanagari names, romanisation variants, city aliases.
+coverage: 0.40
+dup_rate: 0.05
+address_format: split
+columns: {name: firm_name, address: pata, city: shahar, state: rajya, pin: pin, cin: null, gstin: gstin}
+noise:
+  name_devanagari: 0.40
+  name_translit_variant: 0.40
+  name_prefix_ms: 0.30
+  name_suffix_variant: 0.40
+  name_suffix_drop: 0.10
+  name_case: 0.40
+  name_token_swap: 0.10
+  name_typo: 0.05
+  addr_abbrev: 0.20
+  addr_typo: 0.05
+  city_alias: 0.35
+  city_alias_heldout: 0.10
+  state_variant: 0.40
+  pin_missing: 0.20
+  pin_wrong: 0.10
+  gstin_missing: 0.50
+  gstin_typo: 0.05

@@ -1,0 +1,5 @@
+# Entity-disjoint split: every record of a true entity lands in exactly one split.
+fractions: {train: 0.70, valid: 0.15, test: 0.15}
+stratify_by: [cluster_size_bucket, state]
+cluster_size_buckets: [1, 2, 3, 5, 8]   # left edges -> buckets "1", "2", "3-4", "5-7", "8+"
+out_path: ${paths.processed}/entity_split.parquet
