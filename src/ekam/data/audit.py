@@ -83,7 +83,8 @@ def realised_noise(records: pl.DataFrame, gt: pl.DataFrame, entities: pl.DataFra
     """Data-level (not log-level) measures: how often fields still equal the clean value."""
     j = (records.join(gt.select("record_id", "entity_id"), on="record_id")
          .join(entities.select("entity_id", pl.col("name").alias("e_name"),
-                               pl.col("pin").alias("e_pin"), pl.col("cin").alias("e_cin")),
+                               pl.col("pin").alias("e_pin"), pl.col("cin").alias("e_cin"),
+                               pl.col("street").alias("e_street")),
                on="entity_id"))
     # single-line sources keep the PIN inside the address: measure it there
     pin_src = pl.coalesce("pin", pl.col("address").str.extract(r"(?:^|\D)([1-9]\d{5})\s*$", 1))
@@ -98,6 +99,9 @@ def realised_noise(records: pl.DataFrame, gt: pl.DataFrame, entities: pl.DataFra
         (pl.col("pin_n").is_not_null() & (pl.col("pin_n") != pl.col("e_pin")))
         .fill_null(False).mean().alias("pin_wrong"),
         (pl.col("cin_n") == pl.col("e_cin")).fill_null(False).mean().alias("cin_intact"),
+        # split-address sources only (crm_ocr writes one line, so it is ~0 there by design)
+        (pl.col("address") == pl.col("e_street")).fill_null(False).mean()
+        .alias("street_identical"),
     ).sort("source"))
 
 

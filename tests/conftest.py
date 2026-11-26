@@ -58,7 +58,8 @@ def many_entities() -> list[dict]:
         base = SAMPLE_ENTITIES[i % len(SAMPLE_ENTITIES)]
         name = " ".join([rng.choice(words), rng.choice(words), rng.choice(kinds),
                          rng.choice(sufs)]).strip()
-        out.append({**base, "entity_id": f"E{i + 10:07d}", "name": name})
+        street = f"{i + 1} {base['street']}" if base["street"] else None  # distinct streets
+        out.append({**base, "entity_id": f"E{i + 10:07d}", "name": name, "street": street})
     return out
 
 

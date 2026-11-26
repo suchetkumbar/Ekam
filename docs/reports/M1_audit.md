@@ -38,25 +38,25 @@ Records: **669,893**; true matching pairs: **645,547**.
 
 | source | records | name | address | city | state | pin | cin | gstin |
 |---|---|---|---|---|---|---|---|---|
-| erp | 219820 | 1.000 | 0.995 | 0.991 | 1.000 | 0.748 | 0.880 | 0.840 |
+| erp | 219820 | 1.000 | 0.995 | 0.992 | 1.000 | 0.748 | 0.879 | 0.841 |
 | gst_portal | 169534 | 1.000 | 0.995 | 0.991 | 1.000 | 0.774 | — | 0.980 |
-| crm_ocr | 163560 | 1.000 | 1.000 | — | — | — | 0.660 | 0.681 |
-| hindi_vendor | 116979 | 1.000 | 0.994 | 0.991 | 1.000 | 0.718 | — | 0.799 |
+| crm_ocr | 163560 | 1.000 | 1.000 | — | — | — | 0.659 | 0.681 |
+| hindi_vendor | 116979 | 1.000 | 0.994 | 0.992 | 1.000 | 0.717 | — | 0.800 |
 
 ### Realised noise (measured on the data, vs the clean MCA value)
 
-| source | name_identical | name_devanagari | pin_correct | pin_wrong | cin_intact |
-|---|---|---|---|---|---|
-| crm_ocr | 0.438 | 0.000 | 0.664 | 0.022 | 0.633 |
-| erp | 0.552 | 0.000 | 0.742 | 0.006 | 0.873 |
-| gst_portal | 0.869 | 0.000 | 0.764 | 0.009 | 0.000 |
-| hindi_vendor | 0.401 | 0.160 | 0.689 | 0.029 | 0.000 |
+| source | name_identical | name_devanagari | pin_correct | pin_wrong | cin_intact | street_identical |
+|---|---|---|---|---|---|---|
+| crm_ocr | 0.438 | 0.000 | 0.594 | 0.075 | 0.632 | 0.000 |
+| erp | 0.552 | 0.000 | 0.704 | 0.035 | 0.872 | 0.830 |
+| gst_portal | 0.869 | 0.000 | 0.751 | 0.020 | 0.000 | 0.740 |
+| hindi_vendor | 0.401 | 0.160 | 0.641 | 0.065 | 0.000 | 0.854 |
 
 ### Leakage / shortcut checks
 
 - Entity-disjoint split, record→entity→split consistency, no entity_id in any field: **pass**
 - Adjacent rows from the same entity (file-order leak): 0.0000 (random order ≈ 0)
-- Exact-identifier shortcut (valid CIN or GSTIN equal): recall 0.714, precision 0.9999, 25 false pairs. **Every M2+ result is also reported with identifier features removed.**
+- Exact-identifier shortcut (valid CIN or GSTIN equal): recall 0.715, precision 0.9999, 45 false pairs. **Every M2+ result is also reported with identifier features removed.**
 
 ### Configured vs logged noise rates (max |rolled − configured| = 0.002)
 
@@ -64,12 +64,13 @@ Records: **669,893**; true matching pairs: **645,547**.
 
 | source | noise | configured | rolled | applied | unconditional |
 |---|---|---|---|---|---|
-| erp | addr_abbrev | 0.160 | 0.158 | 0.094 | True |
-| erp | addr_typo | 0.020 | 0.020 | 0.020 | True |
-| erp | cin_missing | 0.120 | 0.120 | 0.120 | True |
+| erp | addr_abbrev | 0.160 | 0.160 | 0.095 | True |
+| erp | addr_other | 0.060 | 0.060 | 0.059 | True |
+| erp | addr_typo | 0.020 | 0.020 | 0.019 | True |
+| erp | cin_missing | 0.120 | 0.121 | 0.121 | True |
 | erp | cin_typo | 0.008 | 0.008 | 0.007 | True |
-| erp | city_alias | 0.060 | 0.060 | 0.050 | False |
-| erp | gstin_missing | 0.160 | 0.160 | 0.160 | True |
+| erp | city_alias | 0.060 | 0.061 | 0.052 | False |
+| erp | gstin_missing | 0.160 | 0.159 | 0.159 | True |
 | erp | gstin_typo | 0.008 | 0.008 | 0.007 | True |
 | erp | name_abbrev | 0.100 | 0.100 | 0.036 | True |
 | erp | name_abbrev_heldout | 0.012 | 0.012 | 0.004 | True |
@@ -78,11 +79,12 @@ Records: **669,893**; true matching pairs: **645,547**.
 | erp | name_suffix_drop | 0.020 | 0.020 | 0.020 | True |
 | erp | name_suffix_variant | 0.200 | 0.196 | 0.195 | False |
 | erp | name_typo | 0.020 | 0.020 | 0.019 | True |
-| erp | pin_missing | 0.040 | 0.040 | 0.032 | True |
+| erp | pin_missing | 0.040 | 0.041 | 0.032 | True |
 | erp | pin_wrong | 0.008 | 0.008 | 0.006 | True |
-| erp | state_variant | 0.120 | 0.121 | 0.121 | True |
-| gst_portal | addr_abbrev | 0.120 | 0.121 | 0.071 | True |
-| gst_portal | addr_reorder | 0.160 | 0.158 | 0.147 | True |
+| erp | state_variant | 0.120 | 0.120 | 0.120 | True |
+| gst_portal | addr_abbrev | 0.120 | 0.120 | 0.070 | True |
+| gst_portal | addr_other | 0.020 | 0.019 | 0.019 | True |
+| gst_portal | addr_reorder | 0.160 | 0.161 | 0.149 | True |
 | gst_portal | addr_truncate | 0.040 | 0.040 | 0.039 | True |
 | gst_portal | city_alias | 0.040 | 0.039 | 0.033 | False |
 | gst_portal | gstin_missing | 0.020 | 0.020 | 0.020 | True |
@@ -94,16 +96,17 @@ Records: **669,893**; true matching pairs: **645,547**.
 | gst_portal | pin_missing | 0.008 | 0.008 | 0.006 | True |
 | gst_portal | pin_wrong | 0.012 | 0.012 | 0.009 | True |
 | gst_portal | state_variant | 0.020 | 0.020 | 0.020 | True |
-| crm_ocr | addr_abbrev | 0.160 | 0.159 | 0.095 | True |
-| crm_ocr | addr_ocr | 0.120 | 0.120 | 0.116 | True |
-| crm_ocr | addr_truncate | 0.120 | 0.121 | 0.117 | True |
-| crm_ocr | addr_typo | 0.080 | 0.081 | 0.077 | True |
-| crm_ocr | cin_missing | 0.340 | 0.340 | 0.340 | True |
-| crm_ocr | cin_typo | 0.040 | 0.041 | 0.027 | True |
-| crm_ocr | city_alias | 0.080 | 0.080 | 0.062 | False |
-| crm_ocr | city_missing | 0.080 | 0.079 | 0.079 | True |
+| crm_ocr | addr_abbrev | 0.160 | 0.161 | 0.097 | True |
+| crm_ocr | addr_ocr | 0.120 | 0.119 | 0.116 | True |
+| crm_ocr | addr_other | 0.120 | 0.120 | 0.119 | True |
+| crm_ocr | addr_truncate | 0.120 | 0.121 | 0.118 | True |
+| crm_ocr | addr_typo | 0.080 | 0.079 | 0.075 | True |
+| crm_ocr | cin_missing | 0.340 | 0.341 | 0.341 | True |
+| crm_ocr | cin_typo | 0.040 | 0.040 | 0.026 | True |
+| crm_ocr | city_alias | 0.080 | 0.080 | 0.063 | False |
+| crm_ocr | city_missing | 0.080 | 0.081 | 0.080 | True |
 | crm_ocr | gstin_missing | 0.320 | 0.319 | 0.319 | True |
-| crm_ocr | gstin_typo | 0.040 | 0.039 | 0.027 | True |
+| crm_ocr | gstin_typo | 0.040 | 0.040 | 0.027 | True |
 | crm_ocr | name_abbrev | 0.120 | 0.120 | 0.043 | True |
 | crm_ocr | name_abbrev_heldout | 0.040 | 0.041 | 0.011 | True |
 | crm_ocr | name_case | 0.160 | 0.159 | 0.156 | True |
@@ -113,14 +116,15 @@ Records: **669,893**; true matching pairs: **645,547**.
 | crm_ocr | name_suffix_variant | 0.160 | 0.144 | 0.143 | False |
 | crm_ocr | name_token_drop | 0.060 | 0.061 | 0.032 | True |
 | crm_ocr | name_typo | 0.080 | 0.080 | 0.078 | True |
-| crm_ocr | pin_missing | 0.120 | 0.120 | 0.094 | True |
-| crm_ocr | pin_wrong | 0.032 | 0.031 | 0.022 | True |
+| crm_ocr | pin_missing | 0.120 | 0.121 | 0.096 | True |
+| crm_ocr | pin_wrong | 0.032 | 0.032 | 0.022 | True |
 | crm_ocr | state_variant | 0.120 | 0.121 | 0.121 | True |
-| hindi_vendor | addr_abbrev | 0.080 | 0.080 | 0.047 | True |
+| hindi_vendor | addr_abbrev | 0.080 | 0.081 | 0.048 | True |
+| hindi_vendor | addr_other | 0.080 | 0.080 | 0.079 | True |
 | hindi_vendor | addr_typo | 0.020 | 0.020 | 0.019 | True |
-| hindi_vendor | city_alias | 0.140 | 0.135 | 0.115 | False |
-| hindi_vendor | city_alias_heldout | 0.040 | 0.040 | 0.026 | True |
-| hindi_vendor | gstin_missing | 0.200 | 0.201 | 0.201 | True |
+| hindi_vendor | city_alias | 0.140 | 0.137 | 0.117 | False |
+| hindi_vendor | city_alias_heldout | 0.040 | 0.040 | 0.027 | True |
+| hindi_vendor | gstin_missing | 0.200 | 0.200 | 0.200 | True |
 | hindi_vendor | gstin_typo | 0.020 | 0.020 | 0.016 | True |
 | hindi_vendor | name_case | 0.160 | 0.159 | 0.156 | True |
 | hindi_vendor | name_devanagari | 0.160 | 0.160 | 0.160 | True |
@@ -130,9 +134,9 @@ Records: **669,893**; true matching pairs: **645,547**.
 | hindi_vendor | name_token_swap | 0.040 | 0.040 | 0.040 | True |
 | hindi_vendor | name_translit_variant | 0.160 | 0.160 | 0.155 | True |
 | hindi_vendor | name_typo | 0.020 | 0.020 | 0.020 | True |
-| hindi_vendor | pin_missing | 0.080 | 0.080 | 0.062 | True |
+| hindi_vendor | pin_missing | 0.080 | 0.081 | 0.063 | True |
 | hindi_vendor | pin_wrong | 0.040 | 0.040 | 0.029 | True |
-| hindi_vendor | state_variant | 0.160 | 0.159 | 0.159 | True |
+| hindi_vendor | state_variant | 0.160 | 0.161 | 0.161 | True |
 
 ## Level: medium (rate multiplier ×1.0)
 
@@ -156,25 +160,25 @@ Records: **669,893**; true matching pairs: **645,547**.
 
 | source | records | name | address | city | state | pin | cin | gstin |
 |---|---|---|---|---|---|---|---|---|
-| erp | 219820 | 1.000 | 0.995 | 0.991 | 1.000 | 0.702 | 0.700 | 0.599 |
-| gst_portal | 169534 | 1.000 | 0.995 | 0.991 | 1.000 | 0.764 | — | 0.950 |
-| crm_ocr | 163560 | 1.000 | 1.000 | — | — | — | 0.150 | 0.202 |
-| hindi_vendor | 116979 | 1.000 | 0.994 | 0.991 | 1.000 | 0.624 | — | 0.499 |
+| erp | 219820 | 1.000 | 0.995 | 0.992 | 1.000 | 0.702 | 0.701 | 0.601 |
+| gst_portal | 169534 | 1.000 | 0.995 | 0.992 | 1.000 | 0.764 | — | 0.950 |
+| crm_ocr | 163560 | 1.000 | 1.000 | — | — | — | 0.150 | 0.201 |
+| hindi_vendor | 116979 | 1.000 | 0.994 | 0.992 | 1.000 | 0.624 | — | 0.501 |
 
 ### Realised noise (measured on the data, vs the clean MCA value)
 
-| source | name_identical | name_devanagari | pin_correct | pin_wrong | cin_intact |
-|---|---|---|---|---|---|
-| crm_ocr | 0.100 | 0.000 | 0.499 | 0.044 | 0.135 |
-| erp | 0.160 | 0.000 | 0.688 | 0.014 | 0.686 |
-| gst_portal | 0.684 | 0.000 | 0.741 | 0.023 | 0.000 |
-| hindi_vendor | 0.073 | 0.397 | 0.562 | 0.063 | 0.000 |
+| source | name_identical | name_devanagari | pin_correct | pin_wrong | cin_intact | street_identical |
+|---|---|---|---|---|---|---|
+| crm_ocr | 0.100 | 0.000 | 0.375 | 0.140 | 0.135 | 0.000 |
+| erp | 0.160 | 0.000 | 0.599 | 0.083 | 0.687 | 0.613 |
+| gst_portal | 0.684 | 0.000 | 0.709 | 0.047 | 0.000 | 0.442 |
+| hindi_vendor | 0.073 | 0.397 | 0.465 | 0.134 | 0.000 | 0.663 |
 
 ### Leakage / shortcut checks
 
 - Entity-disjoint split, record→entity→split consistency, no entity_id in any field: **pass**
 - Adjacent rows from the same entity (file-order leak): 0.0000 (random order ≈ 0)
-- Exact-identifier shortcut (valid CIN or GSTIN equal): recall 0.294, precision 0.9999, 26 false pairs. **Every M2+ result is also reported with identifier features removed.**
+- Exact-identifier shortcut (valid CIN or GSTIN equal): recall 0.295, precision 0.9999, 22 false pairs. **Every M2+ result is also reported with identifier features removed.**
 
 ### Configured vs logged noise rates (max |rolled − configured| = 0.003)
 
@@ -182,12 +186,13 @@ Records: **669,893**; true matching pairs: **645,547**.
 
 | source | noise | configured | rolled | applied | unconditional |
 |---|---|---|---|---|---|
-| erp | addr_abbrev | 0.400 | 0.400 | 0.239 | True |
-| erp | addr_typo | 0.050 | 0.049 | 0.047 | True |
-| erp | cin_missing | 0.300 | 0.300 | 0.300 | True |
+| erp | addr_abbrev | 0.400 | 0.399 | 0.237 | True |
+| erp | addr_other | 0.150 | 0.150 | 0.149 | True |
+| erp | addr_typo | 0.050 | 0.050 | 0.048 | True |
+| erp | cin_missing | 0.300 | 0.299 | 0.299 | True |
 | erp | cin_typo | 0.020 | 0.020 | 0.014 | True |
-| erp | city_alias | 0.150 | 0.149 | 0.127 | False |
-| erp | gstin_missing | 0.400 | 0.401 | 0.401 | True |
+| erp | city_alias | 0.150 | 0.150 | 0.128 | False |
+| erp | gstin_missing | 0.400 | 0.399 | 0.399 | True |
 | erp | gstin_typo | 0.020 | 0.020 | 0.012 | True |
 | erp | name_abbrev | 0.250 | 0.251 | 0.091 | True |
 | erp | name_abbrev_heldout | 0.030 | 0.030 | 0.007 | True |
@@ -196,13 +201,14 @@ Records: **669,893**; true matching pairs: **645,547**.
 | erp | name_suffix_drop | 0.050 | 0.050 | 0.050 | True |
 | erp | name_suffix_variant | 0.500 | 0.474 | 0.470 | False |
 | erp | name_typo | 0.050 | 0.050 | 0.048 | True |
-| erp | pin_missing | 0.100 | 0.100 | 0.078 | True |
-| erp | pin_wrong | 0.020 | 0.019 | 0.014 | True |
+| erp | pin_missing | 0.100 | 0.099 | 0.077 | True |
+| erp | pin_wrong | 0.020 | 0.020 | 0.014 | True |
 | erp | state_variant | 0.300 | 0.299 | 0.299 | True |
-| gst_portal | addr_abbrev | 0.300 | 0.300 | 0.167 | True |
-| gst_portal | addr_reorder | 0.400 | 0.398 | 0.371 | True |
-| gst_portal | addr_truncate | 0.100 | 0.100 | 0.098 | True |
-| gst_portal | city_alias | 0.100 | 0.101 | 0.086 | False |
+| gst_portal | addr_abbrev | 0.300 | 0.301 | 0.168 | True |
+| gst_portal | addr_other | 0.050 | 0.049 | 0.049 | True |
+| gst_portal | addr_reorder | 0.400 | 0.399 | 0.371 | True |
+| gst_portal | addr_truncate | 0.100 | 0.101 | 0.098 | True |
+| gst_portal | city_alias | 0.100 | 0.100 | 0.086 | False |
 | gst_portal | gstin_missing | 0.050 | 0.050 | 0.050 | True |
 | gst_portal | gstin_typo | 0.030 | 0.030 | 0.029 | True |
 | gst_portal | name_abbrev | 0.050 | 0.050 | 0.018 | True |
@@ -211,17 +217,18 @@ Records: **669,893**; true matching pairs: **645,547**.
 | gst_portal | name_typo | 0.030 | 0.030 | 0.029 | True |
 | gst_portal | pin_missing | 0.020 | 0.020 | 0.016 | True |
 | gst_portal | pin_wrong | 0.030 | 0.030 | 0.023 | True |
-| gst_portal | state_variant | 0.050 | 0.050 | 0.050 | True |
-| crm_ocr | addr_abbrev | 0.400 | 0.398 | 0.239 | True |
-| crm_ocr | addr_ocr | 0.300 | 0.300 | 0.287 | True |
-| crm_ocr | addr_truncate | 0.300 | 0.301 | 0.292 | True |
-| crm_ocr | addr_typo | 0.200 | 0.199 | 0.186 | True |
+| gst_portal | state_variant | 0.050 | 0.049 | 0.049 | True |
+| crm_ocr | addr_abbrev | 0.400 | 0.398 | 0.237 | True |
+| crm_ocr | addr_ocr | 0.300 | 0.300 | 0.288 | True |
+| crm_ocr | addr_other | 0.300 | 0.298 | 0.297 | True |
+| crm_ocr | addr_truncate | 0.300 | 0.300 | 0.292 | True |
+| crm_ocr | addr_typo | 0.200 | 0.198 | 0.185 | True |
 | crm_ocr | cin_missing | 0.850 | 0.850 | 0.850 | True |
-| crm_ocr | cin_typo | 0.100 | 0.100 | 0.015 | True |
-| crm_ocr | city_alias | 0.200 | 0.199 | 0.136 | False |
-| crm_ocr | city_missing | 0.200 | 0.198 | 0.197 | True |
-| crm_ocr | gstin_missing | 0.800 | 0.798 | 0.798 | True |
-| crm_ocr | gstin_typo | 0.100 | 0.101 | 0.020 | True |
+| crm_ocr | cin_typo | 0.100 | 0.101 | 0.016 | True |
+| crm_ocr | city_alias | 0.200 | 0.199 | 0.137 | False |
+| crm_ocr | city_missing | 0.200 | 0.200 | 0.198 | True |
+| crm_ocr | gstin_missing | 0.800 | 0.799 | 0.799 | True |
+| crm_ocr | gstin_typo | 0.100 | 0.099 | 0.020 | True |
 | crm_ocr | name_abbrev | 0.300 | 0.299 | 0.109 | True |
 | crm_ocr | name_abbrev_heldout | 0.100 | 0.100 | 0.023 | True |
 | crm_ocr | name_case | 0.400 | 0.399 | 0.387 | True |
@@ -231,15 +238,16 @@ Records: **669,893**; true matching pairs: **645,547**.
 | crm_ocr | name_suffix_variant | 0.400 | 0.301 | 0.298 | False |
 | crm_ocr | name_token_drop | 0.150 | 0.150 | 0.079 | True |
 | crm_ocr | name_typo | 0.200 | 0.199 | 0.194 | True |
-| crm_ocr | pin_missing | 0.300 | 0.302 | 0.237 | True |
-| crm_ocr | pin_wrong | 0.080 | 0.080 | 0.044 | True |
+| crm_ocr | pin_missing | 0.300 | 0.299 | 0.233 | True |
+| crm_ocr | pin_wrong | 0.080 | 0.079 | 0.043 | True |
 | crm_ocr | state_variant | 0.300 | 0.301 | 0.301 | True |
 | hindi_vendor | addr_abbrev | 0.200 | 0.202 | 0.121 | True |
-| hindi_vendor | addr_typo | 0.050 | 0.050 | 0.048 | True |
-| hindi_vendor | city_alias | 0.350 | 0.329 | 0.277 | False |
-| hindi_vendor | city_alias_heldout | 0.100 | 0.102 | 0.068 | True |
-| hindi_vendor | gstin_missing | 0.500 | 0.501 | 0.501 | True |
-| hindi_vendor | gstin_typo | 0.050 | 0.050 | 0.025 | True |
+| hindi_vendor | addr_other | 0.200 | 0.202 | 0.200 | True |
+| hindi_vendor | addr_typo | 0.050 | 0.051 | 0.049 | True |
+| hindi_vendor | city_alias | 0.350 | 0.326 | 0.277 | False |
+| hindi_vendor | city_alias_heldout | 0.100 | 0.098 | 0.066 | True |
+| hindi_vendor | gstin_missing | 0.500 | 0.499 | 0.499 | True |
+| hindi_vendor | gstin_typo | 0.050 | 0.051 | 0.026 | True |
 | hindi_vendor | name_case | 0.400 | 0.401 | 0.390 | True |
 | hindi_vendor | name_devanagari | 0.400 | 0.397 | 0.397 | True |
 | hindi_vendor | name_prefix_ms | 0.300 | 0.298 | 0.298 | True |
@@ -248,9 +256,9 @@ Records: **669,893**; true matching pairs: **645,547**.
 | hindi_vendor | name_token_swap | 0.100 | 0.099 | 0.099 | True |
 | hindi_vendor | name_translit_variant | 0.400 | 0.402 | 0.388 | True |
 | hindi_vendor | name_typo | 0.050 | 0.051 | 0.050 | True |
-| hindi_vendor | pin_missing | 0.200 | 0.200 | 0.157 | True |
-| hindi_vendor | pin_wrong | 0.100 | 0.101 | 0.063 | True |
-| hindi_vendor | state_variant | 0.400 | 0.398 | 0.398 | True |
+| hindi_vendor | pin_missing | 0.200 | 0.202 | 0.158 | True |
+| hindi_vendor | pin_wrong | 0.100 | 0.099 | 0.062 | True |
+| hindi_vendor | state_variant | 0.400 | 0.402 | 0.402 | True |
 
 ## Level: hard (rate multiplier ×1.8)
 
@@ -274,38 +282,39 @@ Records: **669,893**; true matching pairs: **645,547**.
 
 | source | records | name | address | city | state | pin | cin | gstin |
 |---|---|---|---|---|---|---|---|---|
-| erp | 219820 | 1.000 | 0.995 | 0.991 | 1.000 | 0.640 | 0.460 | 0.279 |
-| gst_portal | 169534 | 1.000 | 0.995 | 0.991 | 1.000 | 0.751 | — | 0.910 |
-| crm_ocr | 163560 | 1.000 | 1.000 | — | — | — | 0.049 | 0.050 |
-| hindi_vendor | 116979 | 1.000 | 0.994 | 0.991 | 1.000 | 0.501 | — | 0.099 |
+| erp | 219820 | 1.000 | 0.995 | 0.993 | 1.000 | 0.641 | 0.460 | 0.280 |
+| gst_portal | 169534 | 1.000 | 0.995 | 0.992 | 1.000 | 0.752 | — | 0.911 |
+| crm_ocr | 163560 | 1.000 | 1.000 | — | — | — | 0.050 | 0.050 |
+| hindi_vendor | 116979 | 1.000 | 0.994 | 0.993 | 1.000 | 0.499 | — | 0.102 |
 
 ### Realised noise (measured on the data, vs the clean MCA value)
 
-| source | name_identical | name_devanagari | pin_correct | pin_wrong | cin_intact |
-|---|---|---|---|---|---|
-| crm_ocr | 0.006 | 0.000 | 0.307 | 0.051 | 0.040 |
-| erp | 0.004 | 0.000 | 0.618 | 0.023 | 0.443 |
-| gst_portal | 0.456 | 0.000 | 0.711 | 0.041 | 0.000 |
-| hindi_vendor | 0.002 | 0.721 | 0.411 | 0.091 | 0.000 |
+| source | name_identical | name_devanagari | pin_correct | pin_wrong | cin_intact | street_identical |
+|---|---|---|---|---|---|---|
+| crm_ocr | 0.006 | 0.000 | 0.165 | 0.157 | 0.041 | 0.000 |
+| erp | 0.004 | 0.000 | 0.475 | 0.131 | 0.443 | 0.377 |
+| gst_portal | 0.456 | 0.000 | 0.656 | 0.082 | 0.000 | 0.175 |
+| hindi_vendor | 0.002 | 0.721 | 0.281 | 0.184 | 0.000 | 0.455 |
 
 ### Leakage / shortcut checks
 
 - Entity-disjoint split, record→entity→split consistency, no entity_id in any field: **pass**
 - Adjacent rows from the same entity (file-order leak): 0.0000 (random order ≈ 0)
-- Exact-identifier shortcut (valid CIN or GSTIN equal): recall 0.080, precision 0.9998, 11 false pairs. **Every M2+ result is also reported with identifier features removed.**
+- Exact-identifier shortcut (valid CIN or GSTIN equal): recall 0.081, precision 0.9998, 8 false pairs. **Every M2+ result is also reported with identifier features removed.**
 
-### Configured vs logged noise rates (max |rolled − configured| = 0.003)
+### Configured vs logged noise rates (max |rolled − configured| = 0.002)
 
 `rolled` = the noise was drawn; `applied` = it changed the value (the difference is noise that was not applicable, e.g. no PIN to corrupt). `unconditional = false` marks types drawn only when another did not fire (suffix variant vs drop, city alias vs held-out alias) or whose field is not in the source schema; they are excluded from the max-deviation check.
 
 | source | noise | configured | rolled | applied | unconditional |
 |---|---|---|---|---|---|
 | erp | addr_abbrev | 0.720 | 0.720 | 0.430 | True |
-| erp | addr_typo | 0.090 | 0.090 | 0.087 | True |
+| erp | addr_other | 0.270 | 0.268 | 0.266 | True |
+| erp | addr_typo | 0.090 | 0.091 | 0.088 | True |
 | erp | cin_missing | 0.540 | 0.540 | 0.540 | True |
-| erp | cin_typo | 0.036 | 0.036 | 0.016 | True |
-| erp | city_alias | 0.270 | 0.269 | 0.229 | False |
-| erp | gstin_missing | 0.720 | 0.721 | 0.721 | True |
+| erp | cin_typo | 0.036 | 0.037 | 0.017 | True |
+| erp | city_alias | 0.270 | 0.271 | 0.232 | False |
+| erp | gstin_missing | 0.720 | 0.720 | 0.720 | True |
 | erp | gstin_typo | 0.036 | 0.036 | 0.010 | True |
 | erp | name_abbrev | 0.450 | 0.450 | 0.163 | True |
 | erp | name_abbrev_heldout | 0.054 | 0.053 | 0.010 | True |
@@ -314,32 +323,34 @@ Records: **669,893**; true matching pairs: **645,547**.
 | erp | name_suffix_drop | 0.090 | 0.090 | 0.089 | True |
 | erp | name_suffix_variant | 0.900 | 0.819 | 0.812 | False |
 | erp | name_typo | 0.090 | 0.091 | 0.089 | True |
-| erp | pin_missing | 0.180 | 0.179 | 0.140 | True |
+| erp | pin_missing | 0.180 | 0.181 | 0.141 | True |
 | erp | pin_wrong | 0.036 | 0.036 | 0.023 | True |
-| erp | state_variant | 0.540 | 0.540 | 0.540 | True |
-| gst_portal | addr_abbrev | 0.540 | 0.543 | 0.284 | True |
-| gst_portal | addr_reorder | 0.720 | 0.721 | 0.670 | True |
+| erp | state_variant | 0.540 | 0.539 | 0.539 | True |
+| gst_portal | addr_abbrev | 0.540 | 0.541 | 0.284 | True |
+| gst_portal | addr_other | 0.090 | 0.090 | 0.089 | True |
+| gst_portal | addr_reorder | 0.720 | 0.719 | 0.669 | True |
 | gst_portal | addr_truncate | 0.180 | 0.179 | 0.174 | True |
 | gst_portal | city_alias | 0.180 | 0.180 | 0.153 | False |
-| gst_portal | gstin_missing | 0.090 | 0.090 | 0.090 | True |
-| gst_portal | gstin_typo | 0.054 | 0.054 | 0.049 | True |
+| gst_portal | gstin_missing | 0.090 | 0.089 | 0.089 | True |
+| gst_portal | gstin_typo | 0.054 | 0.053 | 0.049 | True |
 | gst_portal | name_abbrev | 0.090 | 0.090 | 0.033 | True |
 | gst_portal | name_suffix_drop | 0.036 | 0.036 | 0.036 | True |
 | gst_portal | name_suffix_variant | 0.540 | 0.521 | 0.517 | False |
 | gst_portal | name_typo | 0.054 | 0.054 | 0.053 | True |
 | gst_portal | pin_missing | 0.036 | 0.036 | 0.028 | True |
-| gst_portal | pin_wrong | 0.054 | 0.055 | 0.041 | True |
+| gst_portal | pin_wrong | 0.054 | 0.053 | 0.040 | True |
 | gst_portal | state_variant | 0.090 | 0.090 | 0.090 | True |
-| crm_ocr | addr_abbrev | 0.720 | 0.721 | 0.431 | True |
-| crm_ocr | addr_ocr | 0.540 | 0.543 | 0.512 | True |
-| crm_ocr | addr_truncate | 0.540 | 0.540 | 0.525 | True |
-| crm_ocr | addr_typo | 0.360 | 0.359 | 0.333 | True |
-| crm_ocr | cin_missing | 0.950 | 0.951 | 0.951 | True |
+| crm_ocr | addr_abbrev | 0.720 | 0.720 | 0.429 | True |
+| crm_ocr | addr_ocr | 0.540 | 0.542 | 0.513 | True |
+| crm_ocr | addr_other | 0.540 | 0.542 | 0.539 | True |
+| crm_ocr | addr_truncate | 0.540 | 0.539 | 0.525 | True |
+| crm_ocr | addr_typo | 0.360 | 0.362 | 0.337 | True |
+| crm_ocr | cin_missing | 0.950 | 0.950 | 0.950 | True |
 | crm_ocr | cin_typo | 0.180 | 0.181 | 0.009 | True |
-| crm_ocr | city_alias | 0.360 | 0.359 | 0.196 | False |
-| crm_ocr | city_missing | 0.360 | 0.362 | 0.358 | True |
+| crm_ocr | city_alias | 0.360 | 0.360 | 0.200 | False |
+| crm_ocr | city_missing | 0.360 | 0.360 | 0.358 | True |
 | crm_ocr | gstin_missing | 0.950 | 0.950 | 0.950 | True |
-| crm_ocr | gstin_typo | 0.180 | 0.180 | 0.009 | True |
+| crm_ocr | gstin_typo | 0.180 | 0.179 | 0.009 | True |
 | crm_ocr | name_abbrev | 0.540 | 0.539 | 0.196 | True |
 | crm_ocr | name_abbrev_heldout | 0.180 | 0.180 | 0.029 | True |
 | crm_ocr | name_case | 0.720 | 0.720 | 0.689 | True |
@@ -349,15 +360,16 @@ Records: **669,893**; true matching pairs: **645,547**.
 | crm_ocr | name_suffix_variant | 0.720 | 0.397 | 0.391 | False |
 | crm_ocr | name_token_drop | 0.270 | 0.271 | 0.144 | True |
 | crm_ocr | name_typo | 0.360 | 0.360 | 0.354 | True |
-| crm_ocr | pin_missing | 0.540 | 0.541 | 0.422 | True |
-| crm_ocr | pin_wrong | 0.144 | 0.143 | 0.051 | True |
-| crm_ocr | state_variant | 0.540 | 0.540 | 0.540 | True |
-| hindi_vendor | addr_abbrev | 0.360 | 0.359 | 0.214 | True |
-| hindi_vendor | addr_typo | 0.090 | 0.089 | 0.087 | True |
-| hindi_vendor | city_alias | 0.630 | 0.554 | 0.460 | False |
-| hindi_vendor | city_alias_heldout | 0.180 | 0.181 | 0.120 | True |
-| hindi_vendor | gstin_missing | 0.900 | 0.901 | 0.901 | True |
-| hindi_vendor | gstin_typo | 0.090 | 0.090 | 0.009 | True |
+| crm_ocr | pin_missing | 0.540 | 0.538 | 0.422 | True |
+| crm_ocr | pin_wrong | 0.144 | 0.143 | 0.052 | True |
+| crm_ocr | state_variant | 0.540 | 0.541 | 0.541 | True |
+| hindi_vendor | addr_abbrev | 0.360 | 0.359 | 0.215 | True |
+| hindi_vendor | addr_other | 0.360 | 0.359 | 0.357 | True |
+| hindi_vendor | addr_typo | 0.090 | 0.091 | 0.089 | True |
+| hindi_vendor | city_alias | 0.630 | 0.554 | 0.465 | False |
+| hindi_vendor | city_alias_heldout | 0.180 | 0.180 | 0.120 | True |
+| hindi_vendor | gstin_missing | 0.900 | 0.898 | 0.898 | True |
+| hindi_vendor | gstin_typo | 0.090 | 0.089 | 0.009 | True |
 | hindi_vendor | name_case | 0.720 | 0.722 | 0.698 | True |
 | hindi_vendor | name_devanagari | 0.720 | 0.721 | 0.721 | True |
 | hindi_vendor | name_prefix_ms | 0.540 | 0.538 | 0.538 | True |
@@ -366,6 +378,6 @@ Records: **669,893**; true matching pairs: **645,547**.
 | hindi_vendor | name_token_swap | 0.180 | 0.180 | 0.179 | True |
 | hindi_vendor | name_translit_variant | 0.720 | 0.720 | 0.697 | True |
 | hindi_vendor | name_typo | 0.090 | 0.090 | 0.088 | True |
-| hindi_vendor | pin_missing | 0.360 | 0.359 | 0.280 | True |
+| hindi_vendor | pin_missing | 0.360 | 0.361 | 0.281 | True |
 | hindi_vendor | pin_wrong | 0.180 | 0.180 | 0.091 | True |
-| hindi_vendor | state_variant | 0.720 | 0.719 | 0.719 | True |
+| hindi_vendor | state_variant | 0.720 | 0.720 | 0.720 | True |

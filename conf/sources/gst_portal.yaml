@@ -12,6 +12,7 @@ noise:
   name_abbrev: 0.05
   name_typo: 0.03
   addr_reorder: 0.40
+  addr_other: 0.05            # principal place differs from registered office
   addr_abbrev: 0.30
   addr_truncate: 0.10
   city_alias: 0.10

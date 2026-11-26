@@ -4,46 +4,46 @@
 
 Matchers score the same blocked candidates (rules ∪ kNN). `precision/recall/f1` are over candidate pairs; `recall_e2e`/`f1_e2e` also count true pairs lost in blocking. Thresholds chosen on the valid split. `no_ids` removes CIN/GSTIN features; `no_street` (diagnostic) also removes street-line features.
 
-Blocking pair completeness on test: easy 0.996, medium 0.972, hard 0.890.
+Blocking pair completeness on test: easy 0.996, medium 0.971, hard 0.887.
 
 | level | variant | model | precision | recall | f1 | recall_e2e | f1_e2e | test_pairs | seconds |
 |---|---|---|---|---|---|---|---|---|---|
-| easy | no_ids | lightgbm | 0.995 | 0.994 | 0.995 | 0.990 | 0.993 | 907373 | 28.334 |
-| easy | no_ids | logreg | 0.980 | 0.989 | 0.985 | 0.985 | 0.983 | 907373 | 2.018 |
-| easy | no_ids | splink | 0.966 | 0.967 | 0.966 | 0.963 | 0.965 | 907373 | 10.331 |
-| easy | no_street | lightgbm | 0.994 | 0.980 | 0.987 | 0.977 | 0.985 | 907373 | 21.554 |
-| easy | no_street | logreg | 0.976 | 0.959 | 0.967 | 0.955 | 0.966 | 907373 | 2.197 |
-| easy | with_ids | lightgbm | 0.998 | 0.998 | 0.998 | 0.994 | 0.996 | 907373 | 15.280 |
-| easy | with_ids | logreg | 0.994 | 0.996 | 0.995 | 0.992 | 0.993 | 907373 | 2.417 |
-| easy | with_ids | splink | 0.976 | 0.985 | 0.981 | 0.981 | 0.979 | 907373 | 12.876 |
-| hard | no_ids | lightgbm | 0.978 | 0.972 | 0.975 | 0.866 | 0.919 | 891646 | 27.276 |
-| hard | no_ids | logreg | 0.953 | 0.940 | 0.947 | 0.837 | 0.891 | 891646 | 2.367 |
-| hard | no_ids | splink | 0.943 | 0.870 | 0.905 | 0.774 | 0.850 | 891646 | 9.563 |
-| hard | no_street | lightgbm | 0.964 | 0.924 | 0.943 | 0.823 | 0.888 | 891646 | 36.669 |
-| hard | no_street | logreg | 0.911 | 0.843 | 0.876 | 0.751 | 0.823 | 891646 | 2.120 |
-| hard | with_ids | lightgbm | 0.982 | 0.972 | 0.977 | 0.866 | 0.920 | 891646 | 40.142 |
-| hard | with_ids | logreg | 0.952 | 0.951 | 0.952 | 0.847 | 0.897 | 891646 | 2.498 |
-| hard | with_ids | splink | 0.916 | 0.878 | 0.897 | 0.781 | 0.844 | 891646 | 10.427 |
-| medium | no_ids | lightgbm | 0.985 | 0.989 | 0.987 | 0.961 | 0.973 | 902380 | 36.475 |
-| medium | no_ids | logreg | 0.967 | 0.975 | 0.971 | 0.948 | 0.958 | 902380 | 2.104 |
-| medium | no_ids | splink | 0.945 | 0.957 | 0.951 | 0.930 | 0.937 | 902380 | 9.765 |
-| medium | no_street | lightgbm | 0.978 | 0.962 | 0.970 | 0.935 | 0.956 | 902380 | 35.687 |
-| medium | no_street | logreg | 0.948 | 0.910 | 0.928 | 0.884 | 0.915 | 902380 | 2.121 |
-| medium | with_ids | lightgbm | 0.989 | 0.990 | 0.990 | 0.963 | 0.976 | 902380 | 38.994 |
-| medium | with_ids | logreg | 0.977 | 0.981 | 0.979 | 0.954 | 0.965 | 902380 | 2.369 |
-| medium | with_ids | splink | 0.946 | 0.963 | 0.955 | 0.936 | 0.941 | 902380 | 11.031 |
+| easy | no_ids | lightgbm | 0.994 | 0.988 | 0.991 | 0.984 | 0.989 | 908646 | 38.329 |
+| easy | no_ids | logreg | 0.982 | 0.969 | 0.976 | 0.965 | 0.973 | 908646 | 2.529 |
+| easy | no_ids | splink | 0.933 | 0.964 | 0.948 | 0.960 | 0.946 | 908646 | 10.698 |
+| easy | no_street | lightgbm | 0.991 | 0.982 | 0.987 | 0.978 | 0.984 | 908646 | 38.476 |
+| easy | no_street | logreg | 0.978 | 0.955 | 0.966 | 0.951 | 0.964 | 908646 | 2.368 |
+| easy | with_ids | lightgbm | 0.998 | 0.996 | 0.997 | 0.992 | 0.995 | 908646 | 29.432 |
+| easy | with_ids | logreg | 0.995 | 0.990 | 0.992 | 0.986 | 0.990 | 908646 | 2.397 |
+| easy | with_ids | splink | 0.940 | 0.986 | 0.963 | 0.982 | 0.961 | 908646 | 13.327 |
+| hard | no_ids | lightgbm | 0.962 | 0.935 | 0.948 | 0.829 | 0.891 | 891398 | 41.379 |
+| hard | no_ids | logreg | 0.910 | 0.850 | 0.879 | 0.753 | 0.824 | 891398 | 2.444 |
+| hard | no_ids | splink | 0.806 | 0.865 | 0.834 | 0.767 | 0.786 | 891398 | 20.780 |
+| hard | no_street | lightgbm | 0.958 | 0.924 | 0.941 | 0.819 | 0.883 | 891398 | 61.361 |
+| hard | no_street | logreg | 0.903 | 0.833 | 0.867 | 0.739 | 0.813 | 891398 | 5.111 |
+| hard | with_ids | lightgbm | 0.965 | 0.938 | 0.951 | 0.832 | 0.894 | 891398 | 40.844 |
+| hard | with_ids | logreg | 0.921 | 0.856 | 0.887 | 0.759 | 0.832 | 891398 | 3.115 |
+| hard | with_ids | splink | 0.807 | 0.868 | 0.837 | 0.770 | 0.788 | 891398 | 11.520 |
+| medium | no_ids | lightgbm | 0.982 | 0.967 | 0.975 | 0.939 | 0.960 | 902216 | 38.772 |
+| medium | no_ids | logreg | 0.957 | 0.920 | 0.938 | 0.893 | 0.924 | 902216 | 2.480 |
+| medium | no_ids | splink | 0.949 | 0.854 | 0.899 | 0.829 | 0.885 | 902216 | 10.428 |
+| medium | no_street | lightgbm | 0.976 | 0.956 | 0.966 | 0.928 | 0.951 | 902216 | 21.578 |
+| medium | no_street | logreg | 0.949 | 0.899 | 0.923 | 0.872 | 0.909 | 902216 | 2.167 |
+| medium | with_ids | lightgbm | 0.985 | 0.975 | 0.980 | 0.946 | 0.965 | 902216 | 38.556 |
+| medium | with_ids | logreg | 0.969 | 0.936 | 0.952 | 0.908 | 0.938 | 902216 | 2.686 |
+| medium | with_ids | splink | 0.953 | 0.878 | 0.914 | 0.853 | 0.900 | 902216 | 11.359 |
 
 LightGBM top features (gain share):
 
-- easy / no_ids: street_token_set:0.65, street_jw:0.24, name_partial:0.03, name_jw:0.02, name_token_sort:0.02
-- easy / no_street: name_token_set:0.57, name_jw:0.29, name_partial:0.05, name_lev:0.02, pin_eq:0.02
-- easy / with_ids: street_token_set:0.67, street_jw:0.22, name_partial:0.03, name_jw:0.02, gstin_eq:0.01
-- hard / no_ids: street_token_set:0.58, street_jw:0.21, name_jw:0.08, name_partial:0.04, name_lev:0.03
-- hard / no_street: name_jw:0.66, name_token_set:0.08, name_token_sort:0.06, name_partial:0.04, name_lev:0.04
-- hard / with_ids: street_token_set:0.58, street_jw:0.19, name_jw:0.07, name_partial:0.04, name_token_set:0.03
-- medium / no_ids: street_token_set:0.62, street_jw:0.23, name_jw:0.05, name_partial:0.03, name_lev:0.02
-- medium / no_street: name_jw:0.69, name_token_set:0.10, name_partial:0.05, name_lev:0.03, name_token_sort:0.03
-- medium / with_ids: street_token_set:0.63, street_jw:0.21, name_jw:0.04, name_partial:0.03, name_token_set:0.02
+- easy / no_ids: name_token_set:0.47, name_jw:0.25, name_partial:0.13, street_token_set:0.06, street_jw:0.02
+- easy / no_street: name_token_set:0.49, name_jw:0.37, name_partial:0.05, name_lev:0.02, name_token_sort:0.02
+- easy / with_ids: name_jw:0.53, name_token_set:0.32, street_token_set:0.04, gstin_eq:0.04, gstin_both:0.02
+- hard / no_ids: name_jw:0.52, name_token_sort:0.14, name_token_set:0.10, name_partial:0.05, name_lev:0.05
+- hard / no_street: name_jw:0.67, name_token_set:0.07, name_token_sort:0.07, name_partial:0.05, name_lev:0.04
+- hard / with_ids: name_jw:0.52, name_token_set:0.20, name_partial:0.05, name_token_sort:0.04, name_lev:0.04
+- medium / no_ids: name_jw:0.55, name_partial:0.13, name_token_set:0.12, street_token_set:0.06, name_token_sort:0.03
+- medium / no_street: name_jw:0.71, name_token_set:0.10, name_partial:0.05, name_lev:0.03, name_token_sort:0.03
+- medium / with_ids: name_jw:0.54, name_token_set:0.22, street_token_set:0.06, name_partial:0.03, name_token_sort:0.02
 
 ## Public benchmarks (published train/valid/test pair splits)
 

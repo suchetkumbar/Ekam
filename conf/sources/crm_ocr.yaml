@@ -17,6 +17,7 @@ noise:
   name_spacing: 0.15
   addr_ocr: 0.30
   addr_typo: 0.20
+  addr_other: 0.30            # invoice ship-to / site addresses
   addr_abbrev: 0.40
   addr_truncate: 0.30
   city_alias: 0.20

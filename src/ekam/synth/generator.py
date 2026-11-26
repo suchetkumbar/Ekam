@@ -31,6 +31,7 @@ import polars as pl
 from omegaconf import DictConfig, OmegaConf
 
 from ekam.synth import gstin as gst
+from ekam.synth.donors import DonorPool
 from ekam.synth.noise import address as an
 from ekam.synth.noise import names as nn
 
@@ -126,7 +127,8 @@ def _missing(_value, _rng):
 
 
 def render_record(entity: dict, src: SourceSpec, level: Level, rng: random.Random,
-                  gstin: str | None) -> tuple[dict, list[str], list[str]]:
+                  gstin: str | None, donors: DonorPool | None = None
+                  ) -> tuple[dict, list[str], list[str]]:
     rates = {k: min(v * level.multiplier, level.rate_cap) for k, v in src.noise.items()}
     nz = _Noiser(rng, rates)
 
@@ -150,13 +152,21 @@ def render_record(entity: dict, src: SourceSpec, level: Level, rng: random.Rando
 
     # ---- address ----------------------------------------------------------------------
     street = entity.get("street") or None
+    moved = None  # (street, city, pin) of a different real address (branch / works / billing)
+
+    def _other(value, r):
+        nonlocal moved
+        moved = donors.pick(entity, r) if donors is not None else None
+        return moved[0] if moved else value
+
+    street = nz("addr_other", street, _other)
     street = nz("addr_reorder", street, an.street_reorder)
     street = nz("addr_abbrev", street, an.street_abbrev)
     street = nz("addr_truncate", street, an.street_truncate)
     street = nz("addr_typo", street, an.street_typo, max_edits=level.max_typo_edits)
     street = nz("addr_ocr", street, an.street_ocr)
 
-    city = entity.get("city") or None
+    city = (moved[1] if moved else entity.get("city")) or None
     city = nz("city_missing", city, _missing)
     before = len(nz.applied)
     city = nz("city_alias_heldout", city, an.city_alias_heldout)
@@ -167,7 +177,7 @@ def render_record(entity: dict, src: SourceSpec, level: Level, rng: random.Rando
     state = nz("state_missing", state, _missing)
     state = nz("state_variant", state, an.state_variant)
 
-    pin = entity.get("pin") or None
+    pin = (moved[2] if moved else entity.get("pin")) or None
     pin = nz("pin_missing", pin, _missing)
     pin = nz("pin_wrong", pin, an.pin_wrong, state=entity.get("state"))
 
@@ -197,8 +207,16 @@ def render_record(entity: dict, src: SourceSpec, level: Level, rng: random.Rando
 
 
 def generate_for_entities(entities: Iterable[dict], sources: list[SourceSpec], level: Level,
-                          seed: int, gstin_prefix: str = "ZZZ") -> tuple[list[dict], list[dict]]:
-    """Pure function: entities -> (records, ground_truth rows). No I/O."""
+                          seed: int, gstin_prefix: str = "ZZZ", donors: DonorPool | None = None
+                          ) -> tuple[list[dict], list[dict]]:
+    """Pure function: entities -> (records, ground_truth rows). No I/O.
+
+    ``donors`` supplies replacement addresses for ``addr_other``; by default it is built
+    from ``entities`` themselves (pass a pool built from *all* entities when chunking).
+    """
+    entities = list(entities)
+    if donors is None:
+        donors = DonorPool.from_entities(entities)
     records, truth = [], []
     for e in entities:
         eid = e["entity_id"]
@@ -208,7 +226,7 @@ def generate_for_entities(entities: Iterable[dict], sources: list[SourceSpec], l
             for k in range(n_records_in_source(seed, src, eid)):
                 rng = random.Random(f"{seed}|{level.name}|{src.name}|{eid}|{k}")
                 rid = str(uuid.UUID(int=rng.getrandbits(128), version=4))
-                rec, applied, inel = render_record(e, src, level, rng, g)
+                rec, applied, inel = render_record(e, src, level, rng, g, donors)
                 rec["record_id"] = rid
                 records.append(rec)
                 truth.append({"record_id": rid, "entity_id": eid, "source": src.name,
@@ -217,9 +235,17 @@ def generate_for_entities(entities: Iterable[dict], sources: list[SourceSpec], l
     return records, truth
 
 
+_DONORS: DonorPool | None = None
+
+
+def _init_worker(donors: DonorPool) -> None:
+    global _DONORS
+    _DONORS = donors
+
+
 def _worker(args):
     chunk, sources, level, seed, prefix = args
-    return generate_for_entities(chunk, sources, level, seed, prefix)
+    return generate_for_entities(chunk, sources, level, seed, prefix, donors=_DONORS)
 
 
 _REC_SCHEMA = {c: pl.Utf8 for c in CANONICAL}
@@ -260,12 +286,15 @@ def generate_level(cfg: DictConfig, entities: pl.DataFrame, level: Level) -> Pat
              for i in range(0, len(rows), cs)]
     recs, gts = [], []
     n_workers = int(cfg.synth.n_workers)
+    donors = DonorPool.from_entities(rows)
     if n_workers > 1 and len(tasks) > 1:
-        with ProcessPoolExecutor(max_workers=n_workers) as ex:
+        with ProcessPoolExecutor(max_workers=n_workers, initializer=_init_worker,
+                                 initargs=(donors,)) as ex:
             for r, t in ex.map(_worker, tasks):
                 recs.extend(r)
                 gts.extend(t)
     else:
+        _init_worker(donors)
         for task in tasks:
             r, t = _worker(task)
             recs.extend(r)

@@ -14,12 +14,12 @@
 * **Synthetic multi-source generator** with exact ground truth: 4 source systems (ERP, GST
   portal, OCR'd CRM, Hindi vendor register) × 3 difficulty levels, India-specific noise
   (legal-suffix variants, abbreviations, Devanagari and romanisation variants, city aliases,
-  wrong PINs, missing/garbled CIN and clearly-synthetic GSTINs) — see
+  wrong PINs, other-branch addresses, missing/garbled CIN and clearly-synthetic GSTINs) — see
   [`docs/NOISE.md`](docs/NOISE.md) and the [audit](docs/reports/M1_audit.md).
 * **Normalisation:** legal-suffix canonicalisation, abbreviation expansion, Devanagari →
   Latin, romanisation folding (Shree/Shri/Sri, Lakshmi/Laxmi), address parsing (PIN, state,
   city aliases), phonetic keys.
-* **Entity-disjoint splits** with leakage tests; 467 tests.
+* **Entity-disjoint splits** with leakage tests; 494 tests.
 
 ## Quick start
 

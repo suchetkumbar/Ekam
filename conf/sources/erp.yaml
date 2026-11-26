@@ -12,6 +12,7 @@ noise:                    # base rates at difficulty=medium
   name_case: 0.60
   name_typo: 0.05
   name_prefix_ms: 0.05
+  addr_other: 0.15            # different real address (branch / works / billing office)
   addr_abbrev: 0.40
   addr_typo: 0.05
   city_alias: 0.15

@@ -50,6 +50,7 @@ Examples are real generator outputs.
 | `name_translit_variant` | re-spells 1–2 Indian words with romanisation variants (sh↔s, ee↔i, aa↔a, w↔v, ksh↔x, ph→f, doubled consonants, Shri/Shree/Sri, final -a) — English business words untouched | SHARMA → SARMA, LAXMI → LAKSHMI, AGARWAL → AGGARWAL |
 | `name_devanagari` | renders the whole name in Devanagari: business loanwords from a lexicon, everything else via heuristic Latin→ITRANS→Devanagari | YASHASWI HOUSING PROJECT … PRIVATE LIMITED → यशस्वी हाउसिंग प्रोजेक्ट … प्रायवेट लिमिटेड |
 | `name_prefix_ms` | adds a trade prefix | → M/s. SHARMA TRADERS |
+| `addr_other` | replaces street + PIN with the **real registered address of another company** in the same city (same state if the city has < 5 companies, which also changes the city): a works / branch / billing / ship-to address. Drawn before all other street noise. See `ekam/synth/donors.py` | 18 GROUND FLOOR SUKHSAGAR COMP…, 380024 → 7 VENUS ATLANTIS NEAR AUDA GAR…, 380007 |
 | `addr_abbrev` | ROAD→RD, NEAR→NR, OPPOSITE→OPP, SECTOR→SEC, INDUSTRIAL→INDL … (70% of eligible words) | OPPOSITE TIMBLO BHAVAN → OPP. TIMBLO BHAVAN |
 | `addr_reorder` | moves a block of the street line to the other end ("A B C D" → "C D, A B") | |
 | `addr_truncate` | keeps the first 40–75% of the street tokens | |
@@ -71,6 +72,7 @@ Examples are real generator outputs.
 |---|---:|---:|---:|---:|
 | `addr_abbrev` | 0.40 | 0.30 | 0.40 | 0.20 |
 | `addr_ocr` | — | — | 0.30 | — |
+| `addr_other` | 0.15 | 0.05 | 0.30 | 0.20 |
 | `addr_reorder` | — | 0.40 | — | — |
 | `addr_truncate` | — | 0.10 | 0.30 | — |
 | `addr_typo` | 0.05 | — | 0.20 | 0.05 |
@@ -130,13 +132,14 @@ than these rates alone imply — see the audit.
   exact name key after Devanagari noise **78.6%** of the time and after romanisation
   variants **97.0%** of the time. A learned transliterator (e.g. AI4Bharat IndicXlit) would
   be more realistic; it is a candidate M3 ablation, not a dependency today.
-* **Street lines are too stable (found in M2).** Every record of an entity starts from the
-  same clean MCA street; noise only abbreviates, re-orders, truncates or mistypes it. At the
-  hard level 64% of true pairs still share an identical normalised street, so a supervised
-  model can treat the street as a near-identifier (LightGBM: ~80% of gain on street features;
-  removing them drops hard-level F1 from 0.975 to 0.943). Real vendor masters often hold a
-  *different* address for the same company (works, branch, billing office). M2 therefore also
-  reports a `no_street` diagnostic.
+* **Street lines were too stable (found in M2, fixed by `addr_other`).** In the first M2
+  run every record of an entity started from the same clean MCA street; at the hard level
+  64% of true pairs shared an identical normalised street and LightGBM put ~80% of its gain
+  on street features. `addr_other` now gives some records another company's real address
+  (rates above); M2 was re-run on the regenerated data. Donor addresses come from the same
+  register, so the noised record shares an address with an unrelated company — realistic
+  (shared registered offices are common) and a source of hard negatives. The `no_street`
+  diagnostic is still reported.
 * **Noise is independent per type.** Real systems have correlated errors (a sloppy
   data-entry clerk makes many). Cluster structure is also simpler than reality (no mergers,
   renames, branch offices or parent/subsidiary links).
