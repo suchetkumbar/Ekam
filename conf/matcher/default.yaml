@@ -1,0 +1,40 @@
+# M2 baselines: string-similarity features -> LR / LightGBM, and Splink (Fellegi-Sunter).
+levels: [easy, medium, hard]
+# Feature sets compared. no_ids = shortcut control (no CIN/GSTIN). no_street = diagnostic:
+# how much the model leans on the street line, which the generator copies (with noise) from
+# one clean MCA address to every record of an entity.
+feature_sets:
+  with_ids: [name, street, geo, ids]
+  no_ids: [name, street, geo]
+  no_street: [name, geo]
+train_max_pairs: 1500000             # all positives kept; negatives subsampled to this cap
+threshold_metric: f1                 # threshold chosen on the valid split
+tfidf:
+  analyzer: char_wb
+  ngram_range: [2, 4]
+  min_df: 2
+  max_features: 200000
+lr:
+  C: 1.0
+  max_iter: 2000
+lgbm:
+  n_estimators: 600
+  learning_rate: 0.05
+  num_leaves: 63
+  min_child_samples: 50
+  subsample: 0.8
+  subsample_freq: 1
+  colsample_bytree: 0.8
+  early_stopping_rounds: 50
+splink:
+  enabled: true
+  variants: [with_ids, no_ids]
+  name_thresholds: [0.95, 0.88, 0.75]
+  street_thresholds: [0.9, 0.7]
+  u_max_pairs: 5000000
+  # EM passes. NOT [pin_norm] alone: one Bengaluru PIN holds 5.5k records -> 1.5e8 pairs (OOM).
+  em_blocking: [[pin_norm, first_token], [name_phonetic, city_norm]]
+  predict_threshold: 0.001
+benchmarks:
+  enabled: true
+  text_max_chars: 1000

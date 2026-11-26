@@ -1,0 +1,28 @@
+# MCA company master data (Registrars of Companies-wise), Open Government Data Platform India.
+# Licence: Government Open Data License - India (GODL-India).
+# Located via the public OGD backend: catalog "Company Master Data",
+# catalog_uuid ec58dab7-d891-4abb-936e-d5d274a6ce9b. Snapshot: "upto Mar 2015".
+name: mca
+url_template: https://data.gov.in/sites/default/files/dataurl15092015/company_master_data_upto_Mar_2015_{state}.csv
+# Milestone-1 working subset: a mix of a Hindi-belt state, a southern state, a western state
+# and a small one (fast smoke test). The full country is fetched later for the M4 scale test.
+states: [Goa, Karnataka, Uttar_Pradesh, Gujarat, Rajasthan]
+raw_dir: ${paths.raw}/mca
+clean_path: ${paths.interim}/mca_entities.parquet
+timeout_s: 120
+retries: 5
+
+# Privacy: ALLOW-list. Only these source columns are ever read; anything else
+# (director names, e-mail, phone, if a future snapshot adds them) is dropped at read time.
+allow_columns:
+  CORPORATE_IDENTIFICATION_NUMBER: cin
+  DATE_OF_REGISTRATION: date_of_registration
+  COMPANY_NAME: name
+  COMPANY_STATUS: status
+  COMPANY_CLASS: company_class
+  COMPANY_CATEGORY: category
+  REGISTERED_STATE: state
+  REGISTRAR_OF_COMPANIES: roc
+  PRINCIPAL_BUSINESS_ACTIVITY: activity
+  REGISTERED_OFFICE_ADDRESS: address
+  SUB_CATEGORY: sub_category

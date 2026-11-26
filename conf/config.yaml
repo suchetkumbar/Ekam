@@ -8,6 +8,9 @@ defaults:
   - noise: medium
   - split: entity
   - hardware: laptop
+  - blocking: default
+  - encoder: e5_small
+  - matcher: default
   - _self_
 
 seed: 13
@@ -26,4 +29,5 @@ hydra:
 
 pipeline:
   data_steps: [download, benchmarks, ingest, synth, split, audit]
+  levels: [easy, medium, hard]
   force: false        # re-run ingest even if its output exists

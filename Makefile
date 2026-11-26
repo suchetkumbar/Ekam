@@ -13,7 +13,7 @@ export TORCH_HOME              := .cache/torch
 export PYTHONUTF8              := 1
 export MLFLOW_DISABLE_AGENT_HINT := 1
 
-.PHONY: help setup data data-quick block train resolve eval demo test test-fast lint mlflow clean-synth
+.PHONY: help setup data data-quick block train m2 resolve eval demo test test-fast lint mlflow clean-synth
 
 help:
 	@echo "setup      install pinned deps (uv sync)"
@@ -22,7 +22,10 @@ help:
 	@echo "test       full pytest suite (includes checks on generated data if present)"
 	@echo "lint       ruff"
 	@echo "mlflow     local MLflow UI on http://127.0.0.1:5000"
-	@echo "block | train | resolve | eval | demo   (milestones 2-5)"
+	@echo "block      M2: normalise, rule + FAISS-kNN blocking, PC/RR curves (docs/reports/M2_blocking.*)"
+	@echo "train      M2: LR / LightGBM / Splink baselines + benchmarks (docs/reports/M2_baselines.*)"
+	@echo "m2         block then train (one command for the M2 deliverables)"
+	@echo "resolve | eval | demo   (milestones 3-5)"
 
 setup:
 	$(UV) sync
@@ -33,8 +36,16 @@ data:
 data-quick:
 	$(RUN) ekam.pipeline.data synth.n_entities=20000 $(ARGS)
 
-block train resolve eval demo:
-	@echo "'make $@' arrives in a later milestone (see CLAUDE.md roadmap)."; exit 1
+block:
+	$(RUN) ekam.pipeline.block $(ARGS)
+
+train:
+	$(RUN) ekam.pipeline.train $(ARGS)
+
+m2: block train
+
+resolve eval demo:
+	@echo "'make $@' arrives in a later milestone (see docs/DECISIONS.md and README)."; exit 1
 
 test:
 	$(UV) run pytest $(ARGS)

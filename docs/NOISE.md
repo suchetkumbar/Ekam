@@ -130,6 +130,13 @@ than these rates alone imply — see the audit.
   exact name key after Devanagari noise **78.6%** of the time and after romanisation
   variants **97.0%** of the time. A learned transliterator (e.g. AI4Bharat IndicXlit) would
   be more realistic; it is a candidate M3 ablation, not a dependency today.
+* **Street lines are too stable (found in M2).** Every record of an entity starts from the
+  same clean MCA street; noise only abbreviates, re-orders, truncates or mistypes it. At the
+  hard level 64% of true pairs still share an identical normalised street, so a supervised
+  model can treat the street as a near-identifier (LightGBM: ~80% of gain on street features;
+  removing them drops hard-level F1 from 0.975 to 0.943). Real vendor masters often hold a
+  *different* address for the same company (works, branch, billing office). M2 therefore also
+  reports a `no_street` diagnostic.
 * **Noise is independent per type.** Real systems have correlated errors (a sloppy
   data-entry clerk makes many). Cluster structure is also simpler than reality (no mergers,
   renames, branch offices or parent/subsidiary links).

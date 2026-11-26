@@ -1,0 +1,23 @@
+# Candidate generation. Measured by pair completeness (PC: share of true pairs kept) vs
+# reduction ratio (RR: share of all n(n-1)/2 pairs removed) and pairs per record.
+eval_split: test              # blocking curves are reported on held-out entities
+rules:
+  # Each rule is a conjunction of normalised fields; a pair is a candidate if it agrees on
+  # ALL fields of ANY rule. Blocks larger than max_block_size are skipped (stop-word keys).
+  max_block_size: 200
+  blocks:
+    pin_first: [pin_norm, first_token]
+    phonetic: [name_phonetic]
+    first_city: [first_token, city_norm]
+    key_exact: [name_key]
+knn:
+  enabled: true
+  k: 10                        # neighbours per record for the main configuration
+  index: auto                  # flat (exact) below auto_flat_max records, else hnsw
+  auto_flat_max: 150000
+  hnsw_m: 32
+  hnsw_ef_search: 128
+  min_similarity: 0.0
+curve:
+  knn_k: [1, 2, 3, 5, 10, 20, 50]
+  rule_block_sizes: [25, 50, 100, 200, 500]

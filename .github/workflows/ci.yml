@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+      UV_CACHE_DIR: /tmp/uv-cache
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.11"
+      - name: Install (CPU-only torch is fine for tests)
+        run: uv sync --frozen
+      - name: Lint
+        run: uv run ruff check src tests
+      - name: Tests (data-dependent tests are skipped without downloads)
+        run: uv run pytest -m "not slow"

@@ -21,6 +21,13 @@ dependencies = [
     "jellyfish>=1.2",
     "httpx>=0.28",
     "tqdm>=4.67",
+    "torch>=2.11.0",
+    "sentence-transformers>=6.3.0",
+    "faiss-cpu>=1.16.0",
+    "scikit-learn>=1.9.1",
+    "lightgbm>=4.7.0",
+    "splink>=5.0.0",
+    "matplotlib>=3.11.2",
 ]
 
 [dependency-groups]
@@ -55,3 +62,13 @@ src = ["src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
+
+# CUDA build of torch on Windows (RTX 3060). Linux/macOS use PyPI torch (Linux PyPI
+# wheels already bundle CUDA), which also keeps CI installs simple.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu128", marker = "sys_platform == 'win32'" }]

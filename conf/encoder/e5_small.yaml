@@ -1,0 +1,7 @@
+name: intfloat/multilingual-e5-small
+prefix: "query: "            # e5 expects a prefix; "query: " for symmetric similarity
+dim: 384
+batch_size: 512
+max_seq_length: 64
+fp16: true
+text_fields: [name_clean, city_norm]   # embedded text = name + city

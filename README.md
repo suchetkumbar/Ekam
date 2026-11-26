@@ -4,7 +4,7 @@
 "Sharma Traders Pvt Ltd", "SHARMA TRADERS PRIVATE LIMITED", "M/s Sharma Trdrs",
 "शर्मा ट्रेडर्स प्रा. लि." — are the same company, and merges them into one golden record.
 
-> **Status: Milestone 1 of 5 (data, noise generator, normalisation, splits).**
+> **Status: Milestone 2 of 5 (blocking + baselines) — see [docs/reports/M2.md](docs/reports/M2.md).**
 > The full README (demo, results tables, limitations) arrives with Milestone 5.
 
 ## What exists today

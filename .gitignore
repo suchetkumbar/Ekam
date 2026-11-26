@@ -1,19 +1,45 @@
-# data never committed
-data/
-!demo/
-.cache/
-mlruns/
-outputs/
-multirun/
+# ---- Data, models and run outputs (never committed; recreated by `make data` etc.) ----
+# Leading "/" anchors to the repo root, so src/ekam/data/ (code) is NOT ignored.
+/data/
+/models/
+/mlruns/
+/outputs/
+/multirun/
+/.cache/
+*.parquet
+*.npy
+*.faiss
+*.ckpt
+*.safetensors
+
+# ---- Secrets ----
 .env
+.env.*
+!.env.example
+
+# ---- Python / tooling ----
 .venv/
 __pycache__/
 *.py[cod]
+*.egg-info/
+build/
+dist/
 .pytest_cache/
 .ruff_cache/
 .hypothesis/
-*.egg-info/
+.mypy_cache/
+.coverage
+htmlcov/
 .ipynb_checkpoints/
+*.log
 
-# local assistant notes (not committed)
+# ---- Editors / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Local assistant notes (public decision log lives in docs/DECISIONS.md) ----
 CLAUDE.md
+.claude/
+/.tmp/
