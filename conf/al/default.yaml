@@ -1,0 +1,24 @@
+# M3 active learning: labels needed vs F1, uncertainty sampling vs random sampling.
+# Pool = uniform sample of *blocked* train-split candidates; eval = uniform sample of blocked
+# test candidates. (Not the cascade survivors: the pre-filter was trained on 1.5M labels,
+# which a team starting from zero labels would not have.)
+level: hard
+variant: no_ids
+strategies: [uncertainty, random]
+eval_pairs: 60000                      # fixed test sample, same for every round and learner
+lightgbm:                              # cheap learner: full curve over several seeds
+  enabled: true
+  seeds: [13, 14, 15]
+  seed_labels: 50
+  budgets: [50, 100, 200, 500, 1000, 2000, 4000, 8000, 16000]
+  pool_pairs: 300000
+  params: {n_estimators: 300, learning_rate: 0.1, num_leaves: 31, min_child_samples: 5,
+           subsample: 0.8, subsample_freq: 1, colsample_bytree: 0.8}
+cross_encoder:
+  enabled: true
+  seeds: [13]
+  seed_labels: 1000                    # 200 labels -> predicts no matches (F1 0.0, first run)
+  budgets: [1000, 2000, 4000, 8000]
+  pool_pairs: 20000                    # cut down: ~12 min/round at 60k pool + 60k eval
+  eval_pairs: 20000                    # sub-sample of the shared eval sample
+  epochs: 4

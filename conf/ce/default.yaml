@@ -1,0 +1,44 @@
+# M3: Ditto-style cross-encoder, used as the second stage of a cascade:
+#   blocked candidates -> LightGBM pre-filter (keeps `prefilter.keep_recall` of the true
+#   candidate pairs on valid) -> cross-encoder decides on the survivors.
+# Why a cascade: the RTX 3060 Laptop scores ~1k pairs/s; all ~0.9M candidates per split
+# would take 15 min per model and split. The pre-filter discards ~80% of candidates and
+# costs 0.5% of recall (reported).
+levels: [hard, medium, easy]
+main_variants: {hard: [no_ids, with_ids], medium: [no_ids], easy: [no_ids]}
+variants:
+  no_ids: [name, street, city, state, pin]
+  with_ids: [name, street, city, state, pin, cin, gstin]
+prefilter:
+  keep_recall: 0.995           # share of valid true candidate pairs that must survive
+  feature_groups: [name, street, geo]   # the M2 no_ids LightGBM
+  oof_folds: 2                 # train-split scores are out-of-fold (no self-scoring)
+model:
+  name: intfloat/multilingual-e5-small
+  max_len: 128
+  batch_size: 32
+  eval_batch_size: 512
+  lr: 5.0e-5
+  weight_decay: 0.01
+  warmup: 0.06
+  epochs: 2
+  fp16: ${hardware.fp16}
+name_column: name_clean        # normalised (Devanagari -> Latin); ablation: raw source name
+train_pairs: 120000            # sampled from train-split survivors
+select_pairs: 30000            # valid survivors used to pick the best epoch
+augment:
+  p: 0.3
+  ops: [span_del, span_shuffle, attr_del, attr_shuffle, side_swap]
+models_dir: models/m3
+ablations:
+  level: hard
+  variant: no_ids
+  train_pairs: 20000           # smaller budget for every ablation, including its reference
+  eval_fraction: 0.5           # uniform half of valid/test candidates (scoring is the slow part)
+  runs:
+    reference: {}
+    no_augment: {augment_p: 0.0}
+    raw_names: {name_column: raw}              # translit/normalisation off: source name as typed
+    name_last: {fields: [street, city, state, pin, name]}
+    name_only: {fields: [name]}
+    minilm: {model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2}

@@ -11,6 +11,8 @@ defaults:
   - blocking: default
   - encoder: e5_small
   - matcher: default
+  - ce: default
+  - al: default
   - _self_
 
 seed: 13
@@ -31,3 +33,4 @@ pipeline:
   data_steps: [download, benchmarks, ingest, synth, split, audit]
   levels: [easy, medium, hard]
   force: false        # re-run ingest even if its output exists
+  m3_stages: [main, ablations, al]
